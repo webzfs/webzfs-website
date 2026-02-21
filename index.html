@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebZFS - Modern Web Interface for ZFS Administration</title>
+  <meta name="description" content="A lightweight, transparent web interface for managing ZFS pools, datasets, snapshots, replication, and more. Supports Linux and FreeBSD.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-content">
+      <a href="#" class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 360 360" fill="none">
+          <g transform="translate(0,20)">
+            <path stroke="#C9D4E5" stroke-width="14" stroke-linejoin="round" stroke-linecap="round" fill="none"
+              d="M 180 20 L 301.244 90 L 301.244 230 L 180 300 L 58.756 230 L 58.756 90 Z"/>
+            <rect x="102" y="97" width="156" height="34" rx="6" fill="#253041"/>
+            <rect x="102" y="143" width="156" height="34" rx="6" fill="#255FCC"/>
+            <rect x="102" y="189" width="156" height="34" rx="6" fill="#2F81F7"/>
+            <circle cx="118" cy="114" r="4" fill="#E6EEF9"/>
+            <circle cx="118" cy="160" r="4" fill="#E6EEF9"/>
+            <circle cx="118" cy="206" r="4" fill="#E6EEF9"/>
+          </g>
+        </svg>
+        <span>WebZFS</span>
+      </a>
+      <nav class="nav">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#platforms" class="nav-link">Platforms</a>
+        <a href="#install" class="nav-link">Install</a>
+        <a href="https://github.com/webzfs/webzfs" target="_blank" rel="noopener" class="github-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </nav>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">v0.55.0 -- Open Source ZFS Management</div>
+      <h1>Modern Web Interface for ZFS Administration</h1>
+      <p class="hero-subtitle">A lightweight, transparent web UI for managing ZFS pools, datasets, snapshots, replication, and system observability. No database required -- direct system integration.</p>
+      <div class="hero-buttons">
+        <a href="#install" class="btn btn-primary">Get Started</a>
+        <a href="https://github.com/webzfs/webzfs" target="_blank" rel="noopener" class="btn btn-secondary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <div class="hero-screenshot">
+        <img src="screenshots/Dashboard-v0.65.png" alt="WebZFS Dashboard" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE OVERVIEW CARDS -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Everything You Need to Manage ZFS</h2>
+        <p>A complete toolkit for ZFS administration, monitoring, and maintenance -- all from your browser.</p>
+      </div>
+      <div class="features-grid">
+        <a href="#tab-dashboard" class="feature-card" onclick="activateTab('dashboard')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3>Dashboard</h3>
+          <p>System overview with pool health, capacity, CPU, memory, and ZFS ARC statistics at a glance.</p>
+        </a>
+        <a href="#tab-pools" class="feature-card" onclick="activateTab('pools')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <h3>Pools</h3>
+          <p>Create, import, export, and scrub pools. View detailed status, properties, and vdev topology.</p>
+        </a>
+        <a href="#tab-datasets" class="feature-card" onclick="activateTab('datasets')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          </div>
+          <h3>Datasets</h3>
+          <p>Manage filesystems and volumes. Create, rename, mount/unmount, and configure properties.</p>
+        </a>
+        <a href="#tab-snapshots" class="feature-card" onclick="activateTab('snapshots')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Snapshots</h3>
+          <p>Create, rollback, clone, rename, and diff snapshots. Full Sanoid integration for automated policies.</p>
+        </a>
+        <a href="#tab-replication" class="feature-card" onclick="activateTab('replication')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          </div>
+          <h3>Replication</h3>
+          <p>Native ZFS send/receive and Syncoid integration. Local and remote replication with full job management.</p>
+        </a>
+        <a href="#tab-observability" class="feature-card" onclick="activateTab('observability')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Observability</h3>
+          <p>Pool history, system events, kernel debug logs, and ZFS module parameters in one place.</p>
+        </a>
+        <a href="#tab-performance" class="feature-card" onclick="activateTab('performance')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Performance</h3>
+          <p>Real-time pool I/O statistics, ARC hit rates, ZFS process monitoring, and capacity analysis.</p>
+        </a>
+        <a href="#tab-utilities" class="feature-card" onclick="activateTab('utilities')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Utilities</h3>
+          <p>Shell terminal, file browser, text editor, SMART monitoring, SSH manager, scrub scheduling, and more.</p>
+        </a>
+        <a href="#tab-fleet" class="feature-card" onclick="activateTab('fleet')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </div>
+          <h3>Fleet View</h3>
+          <p>Monitor multiple ZFS servers from a single dashboard. SSH-based remote pool overview and health checks.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABS NAVIGATION -->
+  <section class="tabs-section" id="page-tabs">
+    <div class="container">
+      <div class="tabs-nav">
+        <button class="tab-btn active" onclick="activateTab('dashboard')">Dashboard</button>
+        <button class="tab-btn" onclick="activateTab('pools')">Pools</button>
+        <button class="tab-btn" onclick="activateTab('datasets')">Datasets</button>
+        <button class="tab-btn" onclick="activateTab('snapshots')">Snapshots</button>
+        <button class="tab-btn" onclick="activateTab('replication')">Replication</button>
+        <button class="tab-btn" onclick="activateTab('observability')">Observability</button>
+        <button class="tab-btn" onclick="activateTab('performance')">Performance</button>
+        <button class="tab-btn" onclick="activateTab('utilities')">Utilities</button>
+        <button class="tab-btn" onclick="activateTab('fleet')">Fleet View</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB CONTENT SECTIONS -->
+  <div id="tab-content-wrapper">
+
+    <!-- DASHBOARD TAB -->
+    <section id="tab-dashboard" class="tab-content active">
+      <div class="container">
+        <div class="feature-detail-content">
+          <div class="feature-detail-text">
+            <h2>Dashboard</h2>
+            <p>The Dashboard provides a centralized system overview, giving you immediate visibility into the health and status of your ZFS infrastructure.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pool health status with color-coded indicators</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Storage capacity overview across all pools</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> CPU and memory utilization metrics</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ZFS ARC cache statistics and hit rates</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> System load averages and uptime</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Quick navigation to all management sections</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Dashboard-v0.65.png" alt="WebZFS Dashboard" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POOLS TAB -->
+    <section id="tab-pools" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content reverse">
+          <div class="feature-detail-text">
+            <h2>Pool Management</h2>
+            <p>Full lifecycle management of your ZFS storage pools. Create new pools, import existing ones, monitor health, and perform maintenance -- all through an intuitive interface.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Create pools with mirror, RAIDZ1, RAIDZ2, RAIDZ3, and stripe configurations</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Import and export pools with force and alternate root options</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Start and stop scrub operations with progress tracking</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> View and modify pool properties</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Detailed vdev topology and disk status</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pool history and event log browsing</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Pools-v0.65.png" alt="WebZFS Pool Management" loading="lazy">
+          </div>
+        </div>
+        <div class="feature-detail-content" style="margin-top: 3rem;">
+          <div class="feature-detail-text">
+            <h2>Pool Detail View</h2>
+            <p>Drill into any pool to see comprehensive information, including status, properties, I/O stats, and full command history.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Complete pool status output with error details</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> All configurable and read-only properties</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Full pool history with filtering</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Pool-v0.65.png" alt="WebZFS Pool Detail" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATASETS TAB -->
+    <section id="tab-datasets" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content">
+          <div class="feature-detail-text">
+            <h2>Dataset Management</h2>
+            <p>Manage ZFS filesystems and volumes with full property control. Create new datasets, adjust quotas and reservations, and manage mount points.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Create filesystems and volumes with custom properties</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Mount and unmount datasets</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Rename datasets across the hierarchy</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Encrypted dataset support with key management</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Space usage breakdown with referenced and used sizes</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Datasets-v0.65.png" alt="WebZFS Dataset Management" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SNAPSHOTS TAB -->
+    <section id="tab-snapshots" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content reverse">
+          <div class="feature-detail-text">
+            <h2>Snapshot Management</h2>
+            <p>Complete snapshot lifecycle management with support for both manual operations and automated policies via Sanoid integration.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Create single or recursive snapshots</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Rollback to any snapshot point</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Clone snapshots to new datasets</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Diff snapshots to see file-level changes</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Manage snapshot holds and rename operations</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Sanoid integration for automated snapshot policies</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Snapshots-v0.65.png" alt="WebZFS Snapshot Management" loading="lazy">
+          </div>
+        </div>
+        <div class="feature-detail-content" style="margin-top: 3rem;">
+          <div class="feature-detail-text">
+            <h2>Sanoid Integration</h2>
+            <p>Automated snapshot management through Sanoid. Configure retention policies, view scheduled snapshots, and manage pruning from the web interface.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> View and edit Sanoid configuration</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Hourly, daily, weekly, monthly retention policies</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Manual trigger for snapshot creation and pruning</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Sanoid-v0.65.png" alt="WebZFS Sanoid Integration" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPLICATION TAB -->
+    <section id="tab-replication" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content">
+          <div class="feature-detail-text">
+            <h2>Replication</h2>
+            <p>Configure and manage ZFS replication jobs using native send/receive or Syncoid. Supports both local and remote replication targets with SSH transport.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Native ZFS send/receive with incremental support</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Syncoid integration for automated replication</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Local and remote replication targets</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SSH-based remote transport with key authentication</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Replication job management and history tracking</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Progress monitoring for active replication jobs</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Replication-v0.65.png" alt="WebZFS Replication" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBSERVABILITY TAB -->
+    <section id="tab-observability" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content reverse">
+          <div class="feature-detail-text">
+            <h2>Observability</h2>
+            <p>Deep visibility into your ZFS subsystem with access to pool history, system events, kernel debug logs, and tunable module parameters.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pool history with command-level audit trail</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ZFS system events and error tracking</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Kernel debug log viewer for ZFS messages</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Syslog entries filtered for ZFS activity</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ZFS module parameters with descriptions</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Cross-platform support for Linux and FreeBSD log sources</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Observability-v0.65.png" alt="WebZFS Observability" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERFORMANCE TAB -->
+    <section id="tab-performance" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content">
+          <div class="feature-detail-text">
+            <h2>Performance Monitoring</h2>
+            <p>Real-time performance metrics for your ZFS storage. Monitor I/O throughput, latency, ARC efficiency, and running ZFS processes.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pool I/O statistics with read/write throughput</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ARC hit rate, size, and efficiency metrics</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Per-vdev I/O statistics breakdown</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Active ZFS process monitoring</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pool capacity analysis</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Dataset-level space usage analysis</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/PerfMon-v0.65.png" alt="WebZFS Performance Monitoring" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UTILITIES TAB -->
+    <section id="tab-utilities" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content reverse">
+          <div class="feature-detail-text">
+            <h2>Utilities</h2>
+            <p>A comprehensive set of system administration tools accessible from the web interface. Manage files, monitor disk health, schedule maintenance, and more.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Web-based shell terminal for command execution</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> File browser with navigation and permissions view</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Text editor for configuration files</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SMART disk monitoring with health, attributes, and tests</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SSH connection manager for remote servers</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Scrub scheduling and audit log viewer</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> System services status (read-only)</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Utilities-v0.65.png" alt="WebZFS Utilities" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLEET VIEW TAB -->
+    <section id="tab-fleet" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content">
+          <div class="feature-detail-text">
+            <h2>Fleet View</h2>
+            <p>Monitor multiple ZFS servers from a single interface. Add remote servers via SSH and get a unified view of pool health, capacity, and status across your infrastructure.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Add and manage remote ZFS servers</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SSH key-based authentication</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Unified pool health overview across all servers</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Connection testing and status indicators</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Capacity and health aggregation</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/FleetView-v0.65.png" alt="WebZFS Fleet View" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- PLATFORMS -->
+  <section id="platforms" class="platforms-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Cross-Platform Support</h2>
+        <p>WebZFS runs on the major operating systems that support OpenZFS.</p>
+      </div>
+      <div class="platforms-grid">
+        <div class="platform-card">
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.311.002-.465.006-.788.026-1.573.12-2.338.33-.24.065-.465.14-.688.22L12 4.46l2.987-3.904c-.223-.08-.448-.155-.688-.22-.765-.21-1.55-.304-2.338-.33C11.816.002 11.66 0 11.504 0h1zM8.582 1.27C6.24 2.294 4.262 4.036 3.1 6.268h5.504l-.022-4.998zm6.836 0l.022 4.998h5.504c-1.162-2.232-3.14-3.974-5.482-4.998h-.044zM2.456 7.768A11.934 11.934 0 001.5 12c0 1.488.274 2.91.77 4.232l5.482-4.232-5.296-4.232zm19.088 0l-5.296 4.232 5.482 4.232A11.934 11.934 0 0022.5 12c0-1.488-.274-2.91-.77-4.232h-.186zM9.104 8.268L4.65 16.232h8.908l-4.454-7.964zm5.792 0l-4.454 7.964h8.908l-4.454-7.964zM3.1 17.732c1.162 2.232 3.14 3.974 5.482 4.998l-.022-4.998H3.1zm12.318 0l.022 4.998c2.342-1.024 4.32-2.766 5.482-4.998h-5.504zM8.582 22.73c.223.08.448.155.688.22.765.21 1.55.304 2.338.33.154.004.31.006.465.006h-1c.155 0 .311-.002.465-.006.788-.026 1.573-.12 2.338-.33.24-.065.465-.14.688-.22L12 19.54l-2.987 3.19h-.431z"/></svg>
+          </div>
+          <h3>Linux</h3>
+          <p>Full support for any distribution running OpenZFS. Tested on Ubuntu, Debian, Fedora, Arch, and more.</p>
+        </div>
+        <div class="platform-card">
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.725 10.534C22.26 4.913 18.155 1.056 13.49.103 12.467-.103 11.36-.005 10.483.387 8.908 1.086 7.937 2.68 8.033 4.413c.075 1.349.59 2.598 1.34 3.718.595.89 1.3 1.715 1.903 2.603.426.626.79 1.3.938 2.051.195 1.002-.028 1.858-.663 2.606-.478.562-1.079.978-1.725 1.325-1.236.664-2.542 1.14-3.742 1.826-1.024.585-1.955 1.294-2.536 2.366-.83 1.534-.608 3.178.472 4.413a5.006 5.006 0 002.298 1.507c1.505.537 3.063.602 4.63.402 2.218-.283 4.2-1.138 5.9-2.636 1.87-1.647 2.955-3.732 3.394-6.172.163-.907.216-1.828.217-2.745.001-1.093-.24-2.143-.734-3.143z"/></svg>
+          </div>
+          <h3>FreeBSD</h3>
+          <p>Full support for FreeBSD 13.x and later with native ZFS. PAM authentication runs as root.</p>
+        </div>
+        <div class="platform-card">
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.4a9.6 9.6 0 110 19.2 9.6 9.6 0 010-19.2zm0 2.4a7.2 7.2 0 100 14.4 7.2 7.2 0 000-14.4zm0 2.4a4.8 4.8 0 110 9.6 4.8 4.8 0 010-9.6z"/></svg>
+          </div>
+          <h3>NetBSD</h3>
+          <p>Partial support with OpenZFS. Core features operational, platform-specific features in progress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section id="install" class="install-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Quick Installation</h2>
+        <p>Get WebZFS running in minutes with the automated installer.</p>
+      </div>
+      <div class="highlights">
+        <div class="highlight-item">
+          <h4>No Database</h4>
+          <p>Direct system integration with zero persistent storage overhead</p>
+        </div>
+        <div class="highlight-item">
+          <h4>PAM Auth</h4>
+          <p>Uses your existing system accounts -- no separate user management</p>
+        </div>
+        <div class="highlight-item">
+          <h4>Localhost</h4>
+          <p>Binds to 127.0.0.1 by default for security-first operation</p>
+        </div>
+        <div class="highlight-item">
+          <h4>SSH Access</h4>
+          <p>Secure remote access via SSH port forwarding</p>
+        </div>
+      </div>
+      <div class="install-code">
+        <pre><span class="comment"># Clone the repository</span>
+<span class="command">git clone https://github.com/webzfs/webzfs.git</span>
+<span class="command">cd webzfs</span>
+
+<span class="comment"># Linux installation</span>
+<span class="command">sudo bash install_linux.sh</span>
+
+<span class="comment"># FreeBSD installation</span>
+<span class="command">sudo bash install_freebsd.sh</span>
+
+<span class="comment"># Access via SSH tunnel (recommended for remote)</span>
+<span class="command">ssh -L 26619:127.0.0.1:26619 user@your-server</span>
+
+<span class="comment"># Then open in browser</span>
+<span class="command">http://127.0.0.1:26619</span></pre>
+      </div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="https://github.com/webzfs/webzfs" target="_blank" rel="noopener" class="btn btn-primary">View Full Documentation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-text">WebZFS -- Open Source ZFS Management Interface</div>
+      <div class="footer-links">
+        <a href="https://github.com/webzfs/webzfs" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/webzfs/webzfs/issues" target="_blank" rel="noopener">Issues</a>
+        <a href="https://github.com/webzfs/webzfs/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var tabNames = ['dashboard', 'pools', 'datasets', 'snapshots', 'replication', 'observability', 'performance', 'utilities', 'fleet'];
+    var tabLabels = ['Dashboard', 'Pools', 'Datasets', 'Snapshots', 'Replication', 'Observability', 'Performance', 'Utilities', 'Fleet View'];
+
+    function activateTab(name) {
+      // Hide all tab content
+      var allTabs = document.querySelectorAll('.tab-content');
+      for (var i = 0; i < allTabs.length; i++) {
+        allTabs[i].classList.remove('active');
+      }
+
+      // Deactivate all tab buttons
+      var allBtns = document.querySelectorAll('.tab-btn');
+      for (var i = 0; i < allBtns.length; i++) {
+        allBtns[i].classList.remove('active');
+      }
+
+      // Show selected tab content
+      var target = document.getElementById('tab-' + name);
+      if (target) {
+        target.classList.add('active');
+        target.classList.add('fade-in');
+      }
+
+      // Activate matching tab button
+      var idx = tabNames.indexOf(name);
+      if (idx >= 0 && allBtns[idx]) {
+        allBtns[idx].classList.add('active');
+      }
+
+      // Scroll tabs nav into view if needed
+      var tabsSection = document.getElementById('page-tabs');
+      if (tabsSection) {
+        var rect = tabsSection.getBoundingClientRect();
+        if (rect.top < 0 || rect.top > 200) {
+          tabsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    function toggleMobileMenu() {
+      var nav = document.querySelector('.nav');
+      if (nav.style.display === 'flex') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '100%';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.backgroundColor = 'var(--bg-base)';
+        nav.style.padding = '1rem 1.5rem';
+        nav.style.borderBottom = '1px solid var(--border-subtle)';
+        nav.style.gap = '1rem';
+      }
+    }
+
+    // Close mobile menu on resize
+    window.addEventListener('resize', function() {
+      var nav = document.querySelector('.nav');
+      if (window.innerWidth > 768) {
+        nav.style.display = '';
+        nav.style.flexDirection = '';
+        nav.style.position = '';
+        nav.style.top = '';
+        nav.style.left = '';
+        nav.style.right = '';
+        nav.style.backgroundColor = '';
+        nav.style.padding = '';
+        nav.style.borderBottom = '';
+        nav.style.gap = '';
+      }
+    });
+  </script>
+
+</body>
+</html>
