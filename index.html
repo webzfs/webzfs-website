@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WebZFS - Modern Web Interface for ZFS Administration</title>
-  <meta name="description" content="A lightweight, transparent web interface for managing ZFS pools, datasets, snapshots, replication, and more. Supports Linux and FreeBSD.">
+  <meta name="description" content="A lightweight, transparent web interface for managing ZFS pools, datasets, snapshots, replication, health analysis, and more. Supports Linux, FreeBSD, and NetBSD.">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,9 +48,9 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <div class="hero-badge">v0.65.0 -- Open Source ZFS Management</div>
+      <div class="hero-badge">v0.75 -- Open Source ZFS Management</div>
       <h1>Modern Web Interface for ZFS Administration</h1>
-      <p class="hero-subtitle">A lightweight, transparent web UI for managing ZFS pools, datasets, snapshots, replication, and system observability. No database required -- direct system integration.</p>
+      <p class="hero-subtitle">A lightweight, transparent web UI for managing ZFS pools, datasets, snapshots, replication, health analysis, and system observability. No database required -- direct system integration.</p>
       <div class="hero-buttons">
         <a href="#install" class="btn btn-primary">Get Started</a>
         <a href="https://github.com/webzfs/webzfs" target="_blank" rel="noopener" class="btn btn-secondary">
@@ -59,7 +59,7 @@
         </a>
       </div>
       <div class="hero-screenshot">
-        <img src="screenshots/Dashboard-v0.65.png" alt="WebZFS Dashboard" loading="lazy">
+        <img src="screenshots/Dashboard-v0.75.png" alt="WebZFS Dashboard" loading="lazy">
       </div>
     </div>
   </section>
@@ -121,6 +121,13 @@
           <h3>Performance</h3>
           <p>Real-time pool I/O statistics, ARC hit rates, ZFS process monitoring, and capacity analysis.</p>
         </a>
+        <a href="#tab-health" class="feature-card" onclick="activateTab('health')">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>Health Analysis</h3>
+          <p>Comprehensive disk health checks, SMART test and scrub schedule verification, and color-coded pool topology.</p>
+        </a>
         <a href="#tab-utilities" class="feature-card" onclick="activateTab('utilities')">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
@@ -150,6 +157,7 @@
         <button class="tab-btn" onclick="activateTab('replication')">Replication</button>
         <button class="tab-btn" onclick="activateTab('observability')">Observability</button>
         <button class="tab-btn" onclick="activateTab('performance')">Performance</button>
+        <button class="tab-btn" onclick="activateTab('health')">Health Analysis</button>
         <button class="tab-btn" onclick="activateTab('utilities')">Utilities</button>
         <button class="tab-btn" onclick="activateTab('fleet')">Fleet View</button>
       </div>
@@ -176,7 +184,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Dashboard-v0.65.png" alt="WebZFS Dashboard" loading="lazy">
+            <img src="screenshots/Dashboard-v0.75.png" alt="WebZFS Dashboard" loading="lazy">
           </div>
         </div>
       </div>
@@ -199,7 +207,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Pools-v0.65.png" alt="WebZFS Pool Management" loading="lazy">
+            <img src="screenshots/Pools-v0.75.png" alt="WebZFS Pool Management" loading="lazy">
           </div>
         </div>
         <div class="feature-detail-content" style="margin-top: 3rem;">
@@ -213,7 +221,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Pool-v0.65.png" alt="WebZFS Pool Detail" loading="lazy">
+            <img src="screenshots/Pool-v0.75.png" alt="WebZFS Pool Detail" loading="lazy">
           </div>
         </div>
       </div>
@@ -235,7 +243,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Datasets-v0.65.png" alt="WebZFS Dataset Management" loading="lazy">
+            <img src="screenshots/Datasets-v0.75.png" alt="WebZFS Dataset Management" loading="lazy">
           </div>
         </div>
       </div>
@@ -258,7 +266,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Snapshots-v0.65.png" alt="WebZFS Snapshot Management" loading="lazy">
+            <img src="screenshots/Snapshots-v0.75.png" alt="WebZFS Snapshot Management" loading="lazy">
           </div>
         </div>
         <div class="feature-detail-content" style="margin-top: 3rem;">
@@ -272,7 +280,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Sanoid-v0.65.png" alt="WebZFS Sanoid Integration" loading="lazy">
+            <img src="screenshots/Sanoid-v0.75.png" alt="WebZFS Sanoid Integration" loading="lazy">
           </div>
         </div>
       </div>
@@ -295,7 +303,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Replication-v0.65.png" alt="WebZFS Replication" loading="lazy">
+            <img src="screenshots/Replication-v0.75.png" alt="WebZFS Replication" loading="lazy">
           </div>
         </div>
       </div>
@@ -318,7 +326,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Observability-v0.65.png" alt="WebZFS Observability" loading="lazy">
+            <img src="screenshots/Observability-v0.75.png" alt="WebZFS Observability" loading="lazy">
           </div>
         </div>
       </div>
@@ -341,7 +349,44 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/PerfMon-v0.65.png" alt="WebZFS Performance Monitoring" loading="lazy">
+            <img src="screenshots/PerfMon-v0.75.png" alt="WebZFS Performance Monitoring" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HEALTH ANALYSIS TAB -->
+    <section id="tab-health" class="tab-content">
+      <div class="container">
+        <div class="feature-detail-content reverse">
+          <div class="feature-detail-text">
+            <h2>Health Analysis</h2>
+            <p>Run comprehensive health checks across your disks, SMART test schedules, and scrub schedules. Reports are generated in the background and persist for historical comparison.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Disk health checks for power-on hours, reallocated sectors, and temperature</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SMART self-test and scrub schedule verification</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Pool topology visualization with color-coded disk age indicators</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Automatic detection of USB-connected drives via SAT probing</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Background execution with live progress polling</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Persistent reports for historical comparison</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/Health-v0.75.png" alt="WebZFS Health Analysis" loading="lazy">
+          </div>
+        </div>
+        <div class="feature-detail-content" style="margin-top: 3rem;">
+          <div class="feature-detail-text">
+            <h2>Health Report</h2>
+            <p>Detailed, shareable health reports summarize the state of every disk and pool, highlighting issues that need attention.</p>
+            <ul class="feature-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Per-disk status with clear pass and warning indicators</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Schedule verification summary for SMART tests and scrubs</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Date-based report identifiers for easy tracking</li>
+            </ul>
+          </div>
+          <div class="feature-detail-image">
+            <img src="screenshots/HealthReport-v0.75.png" alt="WebZFS Health Report" loading="lazy">
           </div>
         </div>
       </div>
@@ -362,10 +407,11 @@
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> SSH connection manager for remote servers</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Scrub scheduling and audit log viewer</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> System services status (read-only)</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> WebZFS settings with 26 themes and configurable session timeout</li>
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/Utilities-v0.65.png" alt="WebZFS Utilities" loading="lazy">
+            <img src="screenshots/Utilities-v0.75.png" alt="WebZFS Utilities" loading="lazy">
           </div>
         </div>
       </div>
@@ -387,7 +433,7 @@
             </ul>
           </div>
           <div class="feature-detail-image">
-            <img src="screenshots/FleetView-v0.65.png" alt="WebZFS Fleet View" loading="lazy">
+            <img src="screenshots/FleetView-v0.75.png" alt="WebZFS Fleet View" loading="lazy">
           </div>
         </div>
       </div>
@@ -489,8 +535,8 @@
   </footer>
 
   <script>
-    var tabNames = ['dashboard', 'pools', 'datasets', 'snapshots', 'replication', 'observability', 'performance', 'utilities', 'fleet'];
-    var tabLabels = ['Dashboard', 'Pools', 'Datasets', 'Snapshots', 'Replication', 'Observability', 'Performance', 'Utilities', 'Fleet View'];
+    var tabNames = ['dashboard', 'pools', 'datasets', 'snapshots', 'replication', 'observability', 'performance', 'health', 'utilities', 'fleet'];
+    var tabLabels = ['Dashboard', 'Pools', 'Datasets', 'Snapshots', 'Replication', 'Observability', 'Performance', 'Health Analysis', 'Utilities', 'Fleet View'];
 
     function activateTab(name) {
       // Hide all tab content
